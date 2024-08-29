@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <ul class="navbar">
+            <li class="navbar__menu active"><a href="/">Home</a></li>
+            <li class="navbar__menu"><a href="/createuser">Create User</a></li>
+        </ul>
+    </header>
+    <div class="table-container">
+        <div class="title">List User</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% listUsers.forEach((item, index) => { %>
+                    <tr>
+                        <td><%= item.id %></td>
+                        <td><%= item.email %></td>
+                        <td><%= item.name %></td>
+                        <td><%= item.city %></td>
+                        <td>
+                            <button class="listuser__button">
+                                <a href="/update/<%= item.id %>">Edit</a>
+                            </button>
+                            <form action="/delete-user/<%= item.id %>" method="post">
+                                <button class="listuser__button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

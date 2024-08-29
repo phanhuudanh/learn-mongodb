@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <ul class="navbar">
+            <li class="navbar__menu"><a href="/">Home</a></li>
+            <li class="navbar__menu active"><a href="/createuser">Create User</a></li>
+        </ul>
+    </header>
+    <div class="form-user">
+        <form action="/create-user" method="post">
+            <fieldset>
+                <legend>Create new user</legend>
+                <div class="input-group">
+                    <label>Email: </label>
+                    <input type="email" name="email" required/>
+                </div>
+                <div class="input-group">
+                    <label>Name: </label>
+                    <input type="text" name="myname" required/>
+                </div>
+                <div class="input-group">
+                    <label>City: </label>
+                    <input type="text" name="city" required/>
+                </div>
+                <button type="submit">Save</button>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
