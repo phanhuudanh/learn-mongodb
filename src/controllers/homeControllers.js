@@ -1,8 +1,9 @@
 const connection = require('../config/database');
+const User = require('../model/user');
 const { getAllUsers, getUserByID, updateUserByID, deleteUserByID } = require('../services/CRUDservice');
 
 const getHomePage = async (req ,res) => {
-    const results = await getAllUsers();
+    const results = await User.find({});
     return res.render("home", {listUsers: results});
 }
 
@@ -10,9 +11,7 @@ const postCreateUser = async (req, res) => {
     let email = req.body.email;
     let name= req.body.myname;
     let city=req.body.city;
-    const [results, feilds] = await connection.query(
-        `INSERT INTO Users(email, name, city) VALUES(?,?,?)`,[email,name,city]
-    );
+    await User.create({email: email,name: name,city: city})
     res.send('create user succeed!')
 }
 const postUpdateUser = async (req, res) => {
@@ -20,7 +19,8 @@ const postUpdateUser = async (req, res) => {
     let id=req.body.userid;
     let name= req.body.myname;
     let city= req.body.city;
-    await updateUserByID(id,email,name,city)
+    // await updateUserByID(id,email,name,city)
+    await User.updateOne({_id: id}, {email:email, name:name, city:city})
     res.redirect('/');
 }
 const createUserPage= (req, res) => {
@@ -29,7 +29,9 @@ const createUserPage= (req, res) => {
 
 const updateUserPage= async (req, res) => {
     const userID = req.params.id;
-    const user = await getUserByID(userID);
+    // const user = await getUserByID(userID);
+    const user = await User.findById(userID).exec();
+    console.log(user)
     return res.render('edit.ejs' ,{userEdit: user});
 }
 const postHanleRemoveUser= async (req, res) => {
