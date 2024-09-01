@@ -12,7 +12,7 @@ const postCreateUser = async (req, res) => {
     let name= req.body.myname;
     let city=req.body.city;
     await User.create({email: email,name: name,city: city})
-    res.send('create user succeed!')
+    res.redirect('/')
 }
 const postUpdateUser = async (req, res) => {
     let email= req.body.email;
@@ -36,12 +36,15 @@ const updateUserPage= async (req, res) => {
 }
 const postHanleRemoveUser= async (req, res) => {
     const userID = req.body.userid;
-    await deleteUserByID(userID);
+    // await deleteUserByID(userID);
+    await User.deleteOne({_id: userID});
     res.redirect('/');
 }
 const postDeleteUser = async (req, res) => {
     const userID =req.params.id;
-    const user= await getUserByID(userID);
+    // const user= await getUserByID(userID);
+    const user = await User.findById(userID).exec();
+    console.log(user)
     return res.render('delete.ejs', {userEdit: user});
 }
 module.exports = {
